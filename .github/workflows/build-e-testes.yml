@@ -1,11 +1,4 @@
 name: Build e Testes
-
-# Quando este workflow roda:
-#   - a cada push na branch main;
-#   - a cada Pull Request que tenha como destino a branch main.
-# É a definição clássica de "Integração Contínua": toda mudança é
-# compilada e testada automaticamente, antes (ou logo depois) de entrar
-# no código principal.
 "on":
   push:
     branches: [ "main" ]
@@ -14,10 +7,6 @@ name: Build e Testes
 
 jobs:
   build-e-testes:
-    # windows-latest é obrigatório aqui: o projeto CotadorLogistico.App usa
-    # WinForms e WebView2, que só existem no Windows. Rodar isso num runner
-    # Linux (a opção mais comum/barata do GitHub Actions) falharia na hora
-    # de compilar essa parte.
     runs-on: windows-latest
 
     steps:

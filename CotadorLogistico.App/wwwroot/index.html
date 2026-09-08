@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotador Logístico</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="demoModeBanner" class="demo-banner" data-i18n="demoMode.banner">MODO DEMONSTRAÇÃO — os valores exibidos são fictícios</div>
+
+<div class="app-container">
+
+    <div class="app-header">
+        <h1>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            <span data-i18n="app.title">Cotador Logístico</span>
+        </h1>
+
+        <div class="header-actions">
+            <button type="button" id="btnTheme" class="icon-btn" data-i18n-title="theme.buttonLabel" title="Alternar tema claro/escuro">
+                <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.2" y1="4.2" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.8" y2="19.8"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.2" y1="19.8" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.8" y2="4.2"></line></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"></path></svg>
+            </button>
+
+            <div class="region-menu-wrapper">
+                <button type="button" id="btnRegion" class="icon-btn" data-i18n-title="region.buttonLabel" title="Região e idioma">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><line x1="3" y1="12" x2="21" y2="12"></line><path d="M12 3a13.5 13.5 0 0 1 0 18a13.5 13.5 0 0 1 0-18z"></path></svg>
+                </button>
+                <div id="regionPanel" class="region-panel">
+                    <div class="region-panel-label" data-i18n="region.languageLabel">Idioma</div>
+                    <button type="button" class="region-option" data-lang="pt-BR"><span class="flag">🇧🇷</span> Português (BR)</button>
+                    <button type="button" class="region-option" data-lang="es-MX"><span class="flag">🇲🇽</span> Español (MX)</button>
+                    <button type="button" class="region-option" data-lang="en-US"><span class="flag">🇬🇧</span> English</button>
+
+                    <hr class="region-panel-divider">
+
+                    <div class="region-panel-label" data-i18n="region.currencyLabel">Moeda</div>
+                    <button type="button" class="region-option" data-currency="BRL"><span class="flag">🇧🇷</span> R$ BRL</button>
+                    <button type="button" class="region-option" data-currency="USD"><span class="flag">🇺🇸</span> US$ USD</button>
+                    <button type="button" class="region-option" data-currency="MXN"><span class="flag">🇲🇽</span> MX$ MXN</button>
+                    <div id="currencyUnavailableHint" class="field-hint" style="display:none; padding: 4px 8px 0;" data-i18n="region.currencyUnavailable">Câmbio indisponível no momento</div>
+                </div>
+            </div>
+
+            <button type="button" id="btnSettings" class="icon-btn" title="Configurações" data-i18n-title="settings.title" aria-label="Abrir configurações">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="6.5"></circle>
+                    <circle cx="12" cy="12" r="2.3"></circle>
+                    <line x1="12" y1="2.5" x2="12" y2="5"></line>
+                    <line x1="12" y1="2.5" x2="12" y2="5" transform="rotate(60 12 12)"></line>
+                    <line x1="12" y1="2.5" x2="12" y2="5" transform="rotate(120 12 12)"></line>
+                    <line x1="12" y1="2.5" x2="12" y2="5" transform="rotate(180 12 12)"></line>
+                    <line x1="12" y1="2.5" x2="12" y2="5" transform="rotate(240 12 12)"></line>
+                    <line x1="12" y1="2.5" x2="12" y2="5" transform="rotate(300 12 12)"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="section-title" data-i18n="cargo.sectionTitle">Dados da Carga</div>
+    <div class="grid-auto">
+        <div class="input-group">
+            <label data-i18n="cargo.originCep">CEP de Origem</label>
+            <input type="text" id="sellerCep" value="" maxlength="8">
+        </div>
+        <div class="input-group">
+            <label data-i18n="cargo.invoiceValue">Valor NFe (R$)</label>
+            <input type="number" id="invoiceValue" value="" step="0.01">
+        </div>
+        <div class="input-group">
+            <label data-i18n="cargo.weight">Peso (kg)</label>
+            <input type="number" id="weight" value="" step="0.1">
+        </div>
+        <div class="input-group">
+            <label data-i18n="cargo.dimensions">C x A x L (cm)</label>
+            <div style="display: flex; gap: 4px;">
+                <input type="number" id="length" value="" title="Comprimento">
+                <input type="number" id="height" value="" title="Altura">
+                <input type="number" id="width" value="" title="Largura">
+            </div>
+        </div>
+    </div>
+
+    <div class="options-panel">
+        <label class="toggle-row" id="meToggleRow" for="toggleME">
+            <div>
+                <div class="toggle-label" data-i18n="options.compareTitle">Habilitar Comparação (Melhor Envio)</div>
+                <div class="toggle-desc" id="meToggleDesc" data-i18n="options.compareDesc">Se ativo, cruza os dados com a API do Melhor Envio para achar o menor custo.</div>
+            </div>
+            <div class="switch">
+                <input type="checkbox" id="toggleME">
+                <span class="slider"></span>
+            </div>
+        </label>
+
+        <label class="toggle-row">
+            <div>
+                <div class="toggle-label" data-i18n="options.manualTitle">Destinos Manuais</div>
+                <div class="toggle-desc" data-i18n="options.manualDesc">Desmarque para calcular automaticamente para todas as Capitais do Brasil.</div>
+            </div>
+            <div class="switch">
+                <input type="checkbox" id="toggleManualCeps">
+                <span class="slider"></span>
+            </div>
+        </label>
+
+        <div id="manual-ceps-container">
+            <div class="input-group" style="width: 150px; margin-bottom: 16px;">
+                <label data-i18n="options.quantityLabel">Quantidade de destinos:</label>
+                <input type="number" id="cepQuantity" min="1" max="20" value="1">
+            </div>
+            <div id="dynamic-cep-inputs" class="grid-auto"></div>
+        </div>
+    </div>
+
+    <div class="notice-banner" id="frenetNotice" data-i18n="frenetNotice">
+        A API da Frenet ainda não foi configurada. Clique no ícone de engrenagem, no topo, para configurar o token antes de calcular.
+    </div>
+
+    <button id="btnCalcular" class="btn-primary" data-i18n="calculate.button">Calcular Cotações</button>
+    <div id="loadingIndicator" class="loading" data-i18n="calculate.loading">Processando requisições na API...</div>
+
+    <div id="resultsArea" class="results-container"></div>
+
+    <div id="summaryArea" class="summary-container">
+        <div class="summary-title" data-i18n="summary.title">Resumo Analítico da Rota</div>
+        <div class="summary-grid">
+            <div class="summary-box">
+                <div style="font-weight: 600; font-size: 11px; color: var(--text-muted); text-transform: uppercase;" data-i18n="summary.avgPriceLabel">Média de Preço</div>
+                <div id="sumPriceWinner" class="summary-highlight">-</div>
+                <div id="sumPriceDesc" class="summary-desc">-</div>
+            </div>
+            <div class="summary-box">
+                <div style="font-weight: 600; font-size: 11px; color: var(--text-muted); text-transform: uppercase;" data-i18n="summary.avgTimeLabel">Média de Prazo</div>
+                <div id="sumTimeWinner" class="summary-highlight">-</div>
+                <div id="sumTimeDesc" class="summary-desc">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="exportArea" class="export-area">
+        <button type="button" id="btnExportXlsx" class="export-btn">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <span data-i18n="export.spreadsheetButton">Exportar Planilha (.xlsx)</span>
+        </button>
+        <button type="button" id="btnExportChartCapital" class="export-btn" style="display:none;">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+            <span data-i18n="export.chartByCapitalOption">Gráfico por Capital</span>
+        </button>
+        <button type="button" id="btnExportChartSummary" class="export-btn" style="display:none;">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 9 9h-9z"></path></svg>
+            <span data-i18n="export.chartSummaryOption">Resumo de Vitórias</span>
+        </button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="settingsOverlay">
+    <form class="modal-card" id="formSettings" novalidate>
+        <div class="modal-header">
+            <span class="modal-title" data-i18n="settings.title">Configurações</span>
+            <button type="button" class="icon-btn" id="btnCloseSettings" aria-label="Fechar">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div>
+                <div class="settings-section-title" style="margin-bottom: 12px;" data-i18n="settings.apiSectionTitle">APIs de Frete</div>
+
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label for="inputFrenetToken" data-i18n="settings.frenetTokenLabel">Token API Frenet</label>
+                    <div class="input-with-toggle">
+                        <input type="password" id="inputFrenetToken" autocomplete="off" data-i18n-placeholder="settings.frenetTokenPlaceholder" placeholder="Cole aqui o token da Frenet">
+                        <button type="button" class="password-toggle-btn" id="btnToggleFrenetVisibility" aria-label="Mostrar ou ocultar token">
+                            <svg class="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg class="icon-eye-off" viewBox="0 0 24 24" style="display:none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle><line x1="3" y1="3" x2="21" y2="21"></line></svg>
+                        </button>
+                    </div>
+                    <div class="field-hint" data-i18n="settings.frenetTokenHint">Usado no header de autenticação exigido pela Frenet.</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="inputMeToken" data-i18n="settings.meTokenLabel">Token API Melhor Envio</label>
+                    <div class="input-with-prefix">
+                        <span class="input-prefix-badge">Bearer</span>
+                        <div class="input-with-toggle">
+                            <input type="password" id="inputMeToken" autocomplete="off" data-i18n-placeholder="settings.meTokenPlaceholder" placeholder="Cole aqui o token, sem o &quot;Bearer &quot;">
+                            <button type="button" class="password-toggle-btn" id="btnToggleMeVisibility" aria-label="Mostrar ou ocultar token">
+                                <svg class="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="icon-eye-off" viewBox="0 0 24 24" style="display:none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path><circle cx="12" cy="12" r="3"></circle><line x1="3" y1="3" x2="21" y2="21"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="field-hint" data-i18n="settings.meTokenHint">O prefixo "Bearer" já vai incluso automaticamente — cole só o token.</div>
+                </div>
+
+                <div class="field-hint" style="margin-top: 12px;" data-i18n="settings.keepBlankHint">
+                    Deixe um campo em branco para manter o token que já está salvo.
+                </div>
+            </div>
+
+            <hr class="settings-divider">
+
+            <div>
+                <div class="settings-section-title" style="margin-bottom: 8px;" data-i18n="settings.diagnosticsSectionTitle">Diagnóstico</div>
+                <button type="button" id="btnExportLogs" class="btn-secondary" style="width: 100%;">
+                    <span data-i18n="settings.exportLogsButton">Exportar Logs de Diagnóstico</span>
+                </button>
+                <div class="field-hint" data-i18n="settings.exportLogsHint">Gera um arquivo com os registros de uso do aplicativo — útil para diagnosticar problemas.</div>
+            </div>
+
+            <div class="settings-feedback" id="settingsFeedback"></div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelSettings" data-i18n="settings.cancelButton">Cancelar</button>
+            <button type="submit" class="btn-primary" style="width: auto; padding: 10px 20px;" data-i18n="settings.saveButton">Salvar</button>
+        </div>
+    </form>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="vendor/chart.umd.min.js"></script>
+<script src="i18n.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

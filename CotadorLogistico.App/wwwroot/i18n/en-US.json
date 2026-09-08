@@ -1,0 +1,100 @@
+{
+  "app": {
+    "title": "Logistics Quote Comparator"
+  },
+  "cargo": {
+    "sectionTitle": "Shipment Details",
+    "originCep": "Origin Postal Code",
+    "invoiceValue": "Invoice Value (R$)",
+    "weight": "Weight (kg)",
+    "dimensions": "L x H x W (cm)"
+  },
+  "options": {
+    "compareTitle": "Enable Comparison (Melhor Envio)",
+    "compareDesc": "When enabled, cross-references data with the Melhor Envio API to find the lowest cost.",
+    "compareLockedDesc": "The Melhor Envio API isn't configured yet. Open Settings to enable the comparison.",
+    "manualTitle": "Manual Destinations",
+    "manualDesc": "Uncheck to automatically calculate for all Brazilian state capitals.",
+    "quantityLabel": "Number of destinations:"
+  },
+  "frenetNotice": "The Frenet API isn't configured yet. Click the gear icon at the top to set up the token before calculating.",
+  "calculate": {
+    "button": "Calculate Quotes",
+    "loading": "Processing API requests...",
+    "loadingProgress": "Processing API requests... ({current} of {total})"
+  },
+  "results": {
+    "expandOthers": "See {count} more options",
+    "noRoute": "No route available.",
+    "unavailable": "Unavailable"
+  },
+  "summary": {
+    "title": "Comparative",
+    "avgPriceLabel": "Average Price",
+    "avgTimeLabel": "Average Delivery Time",
+    "cheaperBy": "{diff}% cheaper on average.",
+    "fasterBy": "{diff}% faster on average.",
+    "tie": "Technical Tie",
+    "tieDesc": "Both platforms show the same average."
+  },
+  "settings": {
+    "title": "Settings",
+    "apiSectionTitle": "Shipping APIs",
+    "frenetTokenLabel": "Frenet API Token",
+    "frenetTokenHint": "Used in the authentication header required by Frenet.",
+    "frenetTokenPlaceholder": "Paste your Frenet token here",
+    "frenetTokenPlaceholderSet": "••• (configured - leave blank to keep it)",
+    "meTokenLabel": "Melhor Envio API Token",
+    "meTokenHint": "The \"Bearer\" prefix is already added automatically - paste just the token.",
+    "meTokenPlaceholder": "Paste your token here, without \"Bearer \"",
+    "meTokenPlaceholderSet": "••• (configured - leave blank to keep it)",
+    "keepBlankHint": "Leave a field blank to keep the token that's already saved.",
+    "diagnosticsSectionTitle": "Diagnostics",
+    "exportLogsButton": "Export Diagnostic Logs",
+    "exportLogsHint": "Generates a file with the app's usage history.",
+    "cancelButton": "Cancel",
+    "saveButton": "Save",
+    "saveSuccess": "Settings saved successfully.",
+    "saveError": "Couldn't save. Check that the app is still running and try again."
+  },
+  "region": {
+    "buttonLabel": "Region and language",
+    "languageLabel": "Language",
+    "currencyLabel": "Currency",
+    "currencyUnavailable": "Exchange rate unavailable right now"
+  },
+  "theme": {
+    "buttonLabel": "Toggle light/dark theme"
+  },
+  "demoMode": {
+    "banner": "DEMO MODE - the values shown are fictitious"
+  },
+  "export": {
+    "spreadsheetButton": "Export Spreadsheet (.xlsx)",
+    "chartByCapitalOption": "Chart by Capital",
+    "chartSummaryOption": "Win Summary",
+    "successMessage": "Exported successfully.",
+    "cancelledMessage": "Export cancelled.",
+    "errorMessage": "Couldn't export. Please try again.",
+    "sheetName": "Quotes",
+    "columnOriginCep": "Origin ZIP",
+    "columnDestCep": "Destination ZIP",
+    "columnDestination": "Destination",
+    "columnWeight": "Weight (kg)",
+    "columnLength": "Length (cm)",
+    "columnHeight": "Height (cm)",
+    "columnWidth": "Width (cm)",
+    "columnInvoiceValue": "Invoice Value (R$)",
+    "columnFrenetCarrier": "Frenet Carrier",
+    "columnFrenetPrice": "Frenet Price (R$)",
+    "columnFrenetTime": "Frenet Time (days)",
+    "columnMeCarrier": "Melhor Envio Carrier",
+    "columnMePrice": "Melhor Envio Price (R$)",
+    "columnMeTime": "Melhor Envio Time (days)",
+    "chartByCapitalTitle": "Frenet vs. Melhor Envio by destination",
+    "chartSummaryTitle": "Who won on price",
+    "chartFrenetLabel": "Frenet",
+    "chartMeLabel": "Melhor Envio",
+    "chartTieLabel": "Tie"
+  }
+}

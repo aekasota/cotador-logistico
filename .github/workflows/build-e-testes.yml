@@ -1,0 +1,57 @@
+name: Build e Testes
+
+# Quando este workflow roda:
+#   - a cada push na branch main;
+#   - a cada Pull Request que tenha como destino a branch main.
+# É a definição clássica de "Integração Contínua": toda mudança é
+# compilada e testada automaticamente, antes (ou logo depois) de entrar
+# no código principal.
+"on":
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-e-testes:
+    # windows-latest é obrigatório aqui: o projeto CotadorLogistico.App usa
+    # WinForms e WebView2, que só existem no Windows. Rodar isso num runner
+    # Linux (a opção mais comum/barata do GitHub Actions) falharia na hora
+    # de compilar essa parte.
+    runs-on: windows-latest
+
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar o .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restaurar as dependências (NuGet)
+        run: dotnet restore CotadorLogistico.sln
+
+      - name: Compilar a solução inteira (Release)
+        run: dotnet build CotadorLogistico.sln --configuration Release --no-restore
+
+      - name: Rodar os testes automatizados
+        run: dotnet test CotadorLogistico.Tests/CotadorLogistico.Tests.csproj --configuration Release --no-restore --verbosity normal
+
+      - name: Publicar o executável Windows
+        run: >
+          dotnet publish CotadorLogistico.App/CotadorLogistico.App.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:DebugType=none
+          --output ./publicado
+
+      - name: Disponibilizar o executável como artefato do workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: CotadorLogistico-windows
+          path: ./publicado
+          retention-days: 14

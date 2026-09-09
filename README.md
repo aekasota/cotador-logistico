@@ -137,5 +137,3 @@ O projeto também possui **GitHub Actions** para automatizar build e testes a ca
 ### 📌 Objetivo
 
 Mais do que um comparador de fretes, o Cotador Logístico foi desenvolvido como uma solução para um problema real da operação, unindo **automação, integração de APIs, análise de dados e experiência de usuário** em uma única aplicação.
-
-**Desenvolvido por hyak :)))**

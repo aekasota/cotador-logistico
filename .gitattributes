@@ -1,0 +1,8 @@
+# Normaliza terminadores de linha para LF no repositório, independente do
+# sistema operacional de quem commita (evita o ruído de "LF will be
+# replaced by CRLF" ao clonar em Windows).
+* text=auto eol=lf
+
+*.png binary
+*.woff2 binary
+*.ico binary

@@ -6,17 +6,17 @@ name: Build e Testes
     branches: [ "main" ]
 
 jobs:
-  build-e-testes:
-    runs-on: windows-latest
+  backend:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Baixar o código do repositório
         uses: actions/checkout@v4
 
-      - name: Instalar o .NET 8 SDK
+      - name: Instalar o .NET 10 SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "10.0.x"
 
       - name: Restaurar as dependências (NuGet)
         run: dotnet restore CotadorLogistico.sln
@@ -24,23 +24,55 @@ jobs:
       - name: Compilar a solução inteira (Release)
         run: dotnet build CotadorLogistico.sln --configuration Release --no-restore
 
-      - name: Rodar os testes automatizados
-        run: dotnet test CotadorLogistico.Tests/CotadorLogistico.Tests.csproj --configuration Release --no-restore --verbosity normal
+      - name: Rodar os testes automatizados (nenhum depende de rede/Postgres reais)
+        run: dotnet test tests/CotadorLogistico.Tests/CotadorLogistico.Tests.csproj --configuration Release --no-restore --verbosity normal
 
-      - name: Publicar o executável Windows
+      - name: Publicar a API
         run: >
-          dotnet publish CotadorLogistico.App/CotadorLogistico.App.csproj
+          dotnet publish backend/CotadorLogistico.Api/CotadorLogistico.Api.csproj
           --configuration Release
-          --runtime win-x64
-          --self-contained true
-          -p:PublishSingleFile=true
-          -p:IncludeNativeLibrariesForSelfExtract=true
-          -p:DebugType=none
-          --output ./publicado
+          --no-restore
+          --output ./publicado-api
 
-      - name: Disponibilizar o executável como artefato do workflow
+      - name: Disponibilizar a API publicada como artefato do workflow
         uses: actions/upload-artifact@v4
         with:
-          name: CotadorLogistico-windows
-          path: ./publicado
+          name: CotadorLogistico-Api
+          path: ./publicado-api
+          retention-days: 14
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/CotadorLogistico.Web/package-lock.json
+
+      - name: Instalar as dependências (npm ci)
+        working-directory: frontend/CotadorLogistico.Web
+        run: npm ci
+
+      - name: Compilar o frontend (tsc + vite build)
+        working-directory: frontend/CotadorLogistico.Web
+        # As variáveis VITE_* aqui são só para o build de CI conseguir rodar —
+        # nenhuma é um segredo (ver docs/SECURITY.md); em produção, substitua
+        # pelos valores reais do seu projeto Supabase no ambiente de build.
+        env:
+          VITE_SUPABASE_URL: https://placeholder.supabase.co
+          VITE_SUPABASE_PUBLISHABLE_KEY: placeholder-key
+          VITE_API_BASE_URL: http://localhost:5080
+        run: npm run build
+
+      - name: Disponibilizar o build do frontend como artefato do workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: CotadorLogistico-Web
+          path: frontend/CotadorLogistico.Web/dist
           retention-days: 14

@@ -1,0 +1,9 @@
+{
+  "name": "cotador-supabase-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Utilitário local para aplicar as migrations de supabase/migrations contra um projeto Supabase real, sem depender da CLI oficial. Não faz parte do app publicado.",
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

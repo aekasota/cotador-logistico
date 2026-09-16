@@ -236,21 +236,6 @@ banco de verdade conversando com Postgres de verdade):
   isolados em chunks separados carregados sob demanda) está um pouco
   acima do limite de aviso do Vite — aceitável para uma ferramenta interna,
   mas vale revisitar se a lista de dependências crescer.
-
-## Melhorias futuras recomendadas (não implementadas nesta migração)
-
-- Paralelizar as chamadas entre destinos diferentes (hoje o loop processa
-  um destino de cada vez, como no app original) — poderia usar um limite
-  de concorrência para acelerar cotações em lote sem sobrecarregar as
-  APIs externas.
-- Testes de integração reais contra um Postgres de desenvolvimento
-  (ex.: via Testcontainers) para exercitar as queries SQL/RLS diretamente,
-  complementando os testes unitários atuais.
-- Aprimorar o nome acessível dos toggles "sem caixa" (hoje são
-  focáveis/anunciados como checkbox, mas o texto associado poderia ficar
-  mais claro para leitores de tela).
-- Paginação/filtro na tela "Meu Time" caso o time cresça muito.
-- Testar concorrência real do advisory lock do câmbio com múltiplas
   instâncias do backend.
 
 Estas ideias **não foram implementadas** de propósito — ficam registradas

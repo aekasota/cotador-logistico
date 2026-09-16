@@ -6,8 +6,6 @@ O projeto nasceu de uma necessidade real da operação comercial: reduzir o temp
 
 A versão atual evoluiu de um aplicativo desktop para uma **arquitetura web com backend, frontend, banco de dados e autenticação**, mantendo o objetivo original e ampliando a solução para uso por equipes e múltiplas organizações.
 
-> 💡 A interface atual pode ser complementada com screenshots adicionais nas áreas indicadas abaixo.
-
 <img width="1573" height="866" alt="Screenshot_67" src="https://github.com/user-attachments/assets/67fdd718-9a58-4757-90b1-8355632f9e22" />
 
 ---

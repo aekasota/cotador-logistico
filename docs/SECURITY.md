@@ -136,13 +136,3 @@ contra força bruta de tentativas de login são responsabilidade do Supabase
 opcionalmente com CAPTCHA/Turnstile). Não há como este backend adicionar
 uma segunda camada sem duplicar esse mecanismo — se seu caso de uso exigir
 mais controle, configure isso no painel do Supabase.
-
-## Checklist antes de produção
-
-- [ ] Confirmar mecanismo de autenticação atual da API do Gemini (ver acima).
-- [ ] Configurar CORS com a URL real de produção do frontend.
-- [ ] Gerar `SECRETS_MASTER_KEY` único por ambiente, se usar o modo `Aes`.
-- [ ] Revisar rate limits do Supabase Auth para o volume esperado de login.
-- [ ] Confirmar TLS/HTTPS de ponta a ponta (ver `DEPLOY.md`).
-- [ ] Trocar o e-mail de contato de exemplo em `MelhorEnvioApiProxy`
-      (constante `UserAgent`) pelo contato real da empresa.

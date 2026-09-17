@@ -155,10 +155,7 @@ CotadorLogistico.sln
 │   ├── scripts
 │   └── seed
 │
-├── docs/
-│
-└── legacy-desktop/
-    └── versão original em WinForms
+└── docs/
 ```
 
 O frontend se comunica com a API HTTP, enquanto o backend concentra autenticação, autorização, regras de negócio, integrações externas e acesso ao banco.

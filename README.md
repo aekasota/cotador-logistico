@@ -32,7 +32,7 @@ A versão atual evoluiu de um aplicativo desktop para uma **arquitetura web com 
   * `OPERATOR`
   * `SUPERVISOR`
   * `OWNER`
-* **Organizações isoladas** para suportar múltiplas empresas
+* **Organizações isoladas** para suportar múltiplos times
 * **Gerenciamento de equipe** por usuários autorizados
 * Associação de operadores a supervisores
 * Ativação e desativação de usuários
@@ -197,7 +197,7 @@ A aplicação não permite promover usuários para `OWNER` pela interface.
 
 ## 🏢 Multi-tenancy
 
-Cada empresa possui uma **organização própria** no banco.
+Cada time possui uma **organização própria** no banco.
 
 Os dados de:
 

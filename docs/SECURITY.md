@@ -1,7 +1,6 @@
 # Segurança
 
-Este documento explica as decisões de segurança da migração e o que ainda
-precisa de atenção humana antes de um deploy real (ver também a seção
+Este documento explica as decisões de segurança da migração (ver também a seção
 "Pendências e riscos conhecidos" no relatório final da migração).
 
 ## Regra de ouro (ver seção 48 do pedido de migração)
@@ -72,7 +71,7 @@ valor do token. Ver `SettingsController`.
   pelo backend, para a API administrativa do Supabase Auth (criação de
   contas). Nunca deve chegar ao navegador.
 
-## Gemini — atenção antes de publicar
+## Gemini
 
 `GeminiPackageDimensionEstimator` (`CotadorLogistico.Infrastructure.Ai`)
 envia a API key pelo header `x-goog-api-key` (nunca na query string, para

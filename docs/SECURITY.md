@@ -3,7 +3,7 @@
 Este documento explica as decisões de segurança da migração (ver também a seção
 "Pendências e riscos conhecidos" no relatório final da migração).
 
-## Regra de ouro (ver seção 48 do pedido de migração)
+## Regra de ouro
 
 O frontend nunca é tratado como fronteira de segurança. Todo lugar em que o
 frontend "esconde" um botão (ex.: o botão "Meu Time" só aparece para
